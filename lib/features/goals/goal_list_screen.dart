@@ -91,7 +91,7 @@ class _GoalListTile extends StatelessWidget {
               width: 46,
               height: 46,
               decoration: BoxDecoration(
-                color: color.withOpacity(0.18),
+                color: color.withValues(alpha: 0.18),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Icon(

@@ -20,11 +20,11 @@ class StreakBanner extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         gradient: LinearGradient(
           colors: [
-            AppColors.secondary.withOpacity(0.25),
-            AppColors.secondary.withOpacity(0.08),
+            AppColors.secondary.withValues(alpha: 0.25),
+            AppColors.secondary.withValues(alpha: 0.08),
           ],
         ),
-        border: Border.all(color: AppColors.secondary.withOpacity(0.35)),
+        border: Border.all(color: AppColors.secondary.withValues(alpha: 0.35)),
       ),
       child: Row(
         children: [
@@ -33,7 +33,7 @@ class StreakBanner extends StatelessWidget {
             width: 48,
             height: 48,
             decoration: BoxDecoration(
-              color: AppColors.secondary.withOpacity(0.18),
+              color: AppColors.secondary.withValues(alpha: 0.18),
               shape: BoxShape.circle,
             ),
             child: const Center(
@@ -61,7 +61,7 @@ class StreakBanner extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 6, vertical: 2),
                         decoration: BoxDecoration(
-                          color: AppColors.secondary.withOpacity(0.2),
+                          color: AppColors.secondary.withValues(alpha: 0.2),
                           borderRadius: BorderRadius.circular(6),
                         ),
                         child: const Text(
@@ -94,14 +94,14 @@ class StreakBanner extends StatelessWidget {
               Text(
                 'Keep it up!',
                 style: TextStyle(
-                  color: AppColors.secondary.withOpacity(0.7),
+                  color: AppColors.secondary.withValues(alpha: 0.7),
                   fontSize: 11,
                   fontWeight: FontWeight.w500,
                 ),
               ),
               const SizedBox(height: 4),
               Icon(Icons.arrow_forward_ios_rounded,
-                  size: 12, color: AppColors.secondary.withOpacity(0.5)),
+                    color: AppColors.secondary.withValues(alpha: 0.7),),
             ],
           ),
         ],

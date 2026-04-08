@@ -58,7 +58,7 @@ Future<void> _alarmCallback(int id, Map<String, dynamic>? params) async {
 
   final plugin = FlutterLocalNotificationsPlugin();
   await plugin.initialize(
-    const InitializationSettings(
+    settings: const InitializationSettings(
       android: AndroidInitializationSettings('@mipmap/ic_launcher'),
     ),
   );
@@ -78,12 +78,12 @@ Future<void> _alarmCallback(int id, Map<String, dynamic>? params) async {
   );
 
   await plugin.show(
-    id,
-    '⏰ $title',
-    requiresPuzzle
+    id: id,
+    title: '⏰ $title',
+    body: requiresPuzzle
         ? 'Solve a quick challenge to dismiss this alarm.'
         : 'Tap to mark your milestone progress.',
-    NotificationDetails(android: androidDetails),
+    notificationDetails: NotificationDetails(android: androidDetails),
     payload: 'alarm:$milestoneUid:${requiresPuzzle ? "puzzle" : "simple"}',
   );
 }

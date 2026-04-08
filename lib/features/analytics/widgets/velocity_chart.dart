@@ -92,8 +92,8 @@ class VelocityChart extends StatelessWidget {
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-                  AppColors.primary.withOpacity(0.28),
-                  AppColors.primary.withOpacity(0.0),
+                  AppColors.primary.withValues(alpha: 0.28),
+                  AppColors.primary.withValues(alpha: 0.0),
                 ],
               ),
             ),

@@ -89,7 +89,7 @@ class _CreateGoalScreenState extends ConsumerState<CreateGoalScreen> {
                         width: 2.5,
                       ),
                       boxShadow: _selectedColorIndex == i
-                          ? [BoxShadow(color: c.withOpacity(0.5), blurRadius: 8)]
+                          ? [BoxShadow(color: c.withValues(alpha: 0.1), blurRadius: 8)]
                           : null,
                     ),
                   ),
@@ -115,7 +115,7 @@ class _CreateGoalScreenState extends ConsumerState<CreateGoalScreen> {
                       margin: const EdgeInsets.only(right: 8),
                       decoration: BoxDecoration(
                         color: isSelected
-                            ? color.withOpacity(0.2)
+                            ? color.withValues(alpha: 0.2)
                             : AppColors.card,
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(
@@ -171,7 +171,7 @@ class _CreateGoalScreenState extends ConsumerState<CreateGoalScreen> {
                   onSelected: (_) =>
                       setState(() => _selectedCategory = cat),
                   selectedColor:
-                      AppColors.primary.withOpacity(0.2),
+                      AppColors.primary.withValues(alpha: 0.2),
                   checkmarkColor: AppColors.primary,
                   labelStyle: TextStyle(
                     color:

@@ -87,13 +87,13 @@ class AnalyticsScreen extends ConsumerWidget {
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: [
-                        AppColors.primary.withOpacity(0.18),
-                        AppColors.primary.withOpacity(0.05),
+                        AppColors.primary.withValues(alpha: 0.18),
+                        AppColors.primary.withValues(alpha: 0.05),
                       ],
                     ),
                     borderRadius: BorderRadius.circular(16),
                     border:
-                        Border.all(color: AppColors.primary.withOpacity(0.3)),
+                        Border.all(color: AppColors.primary.withValues(alpha: 0.3)),
                   ),
                   child: Row(
                     children: [
@@ -101,7 +101,7 @@ class AnalyticsScreen extends ConsumerWidget {
                         width: 44,
                         height: 44,
                         decoration: BoxDecoration(
-                          color: AppColors.primary.withOpacity(0.2),
+                          color: AppColors.primary.withValues(alpha: 0.2),
                           shape: BoxShape.circle,
                         ),
                         child: const Center(

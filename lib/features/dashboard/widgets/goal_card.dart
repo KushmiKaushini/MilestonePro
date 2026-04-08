@@ -23,12 +23,12 @@ class GoalCard extends StatelessWidget {
         margin: const EdgeInsets.only(right: 12),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(AppConstants.radiusL),
-          border: Border.all(color: color.withOpacity(0.25)),
+          border: Border.all(color: color.withValues(alpha: 0.25)),
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              color.withOpacity(0.12),
+              color.withValues(alpha: 0.12),
               AppColors.card,
               AppColors.card,
             ],
@@ -47,7 +47,7 @@ class GoalCard extends StatelessWidget {
                   width: 42,
                   height: 42,
                   decoration: BoxDecoration(
-                    color: color.withOpacity(0.18),
+                    color: color.withValues(alpha: 0.18),
                     borderRadius: BorderRadius.circular(11),
                   ),
                   child: Icon(
@@ -137,10 +137,10 @@ class GoalCard extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
-                  color: AppColors.secondary.withOpacity(0.12),
+                  color: AppColors.primary.withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(6),
                   border:
-                      Border.all(color: AppColors.secondary.withOpacity(0.3)),
+                      Border.all(color: AppColors.secondary.withValues(alpha: 0.3)),
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,

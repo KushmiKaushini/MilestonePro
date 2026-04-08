@@ -31,6 +31,22 @@ subprojects {
             if (android.namespace == null) {
                 android.namespace = proj.group.toString() + "." + proj.name.replace("-", "_")
             }
+            
+            // AGP 8.x Manifest Sanitizer: Remove legacy 'package' attribute from plugin manifests
+            proj.tasks.whenTaskAdded {
+                if (name.contains("process") && name.contains("Manifest")) {
+                    doFirst {
+                        val manifestFile = proj.file("src/main/AndroidManifest.xml")
+                        if (manifestFile.exists()) {
+                            val content = manifestFile.readText()
+                            if (content.contains("package=")) {
+                                val sanitized = content.replace(Regex("""package="[^"]*""""), "")
+                                manifestFile.writeText(sanitized)
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
     if (proj.state.executed) {

@@ -31,7 +31,7 @@ class NotificationService {
     );
 
     await _plugin.initialize(
-      const InitializationSettings(android: androidInit, iOS: iosInit),
+      settings: const InitializationSettings(android: androidInit, iOS: iosInit),
       onDidReceiveNotificationResponse: _handleTap,
       onDidReceiveBackgroundNotificationResponse: _backgroundTapHandler,
     );
@@ -117,14 +117,13 @@ class NotificationService {
     );
 
     await _plugin.zonedSchedule(
-      id,
-      title,
-      body,
-      tz.TZDateTime.from(scheduledDate, tz.local),
-      NotificationDetails(android: androidDetails, iOS: iosDetails),
+      id: id,
+      title: title,
+      body: body,
+      scheduledDate: tz.TZDateTime.from(scheduledDate, tz.local),
+      notificationDetails:
+          NotificationDetails(android: androidDetails, iOS: iosDetails),
       androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-      uiLocalNotificationDateInterpretation:
-          UILocalNotificationDateInterpretation.absoluteTime,
       payload: payload,
     );
   }
@@ -143,15 +142,15 @@ class NotificationService {
       priority: Priority.max,
     );
     await _plugin.show(
-      id,
-      title,
-      body,
-      NotificationDetails(android: androidDetails),
+      id: id,
+      title: title,
+      body: body,
+      notificationDetails: NotificationDetails(android: androidDetails),
       payload: payload,
     );
   }
 
-  Future<void> cancel(int id) => _plugin.cancel(id);
+  Future<void> cancel(int id) => _plugin.cancel(id: id);
   Future<void> cancelAll() => _plugin.cancelAll();
 
   // ── Permissions ───────────────────────────────────────────────────────────

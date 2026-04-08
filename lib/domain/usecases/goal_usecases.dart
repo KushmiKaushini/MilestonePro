@@ -50,15 +50,7 @@ class GoalUseCases {
   }
 
   Future<void> deleteGoal(int goalId) async {
-    // Also delete all milestones then tasks for this goal
-    final goal = await goalRepo?.getById(goalId);
-    if (goal == null) return;
-
-    final milestones = await milestoneRepo?.getForGoal(goal.uid) ?? [];
-    for (final m in milestones) {
-      await milestoneRepo?.delete(m.id);
-    }
-    await goalRepo?.delete(goalId);
+    await goalRepo?.deleteRecursive(goalId);
   }
 
   Future<void> refreshGoalProgress(String goalUid) async {

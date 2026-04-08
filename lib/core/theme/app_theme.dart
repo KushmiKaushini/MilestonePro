@@ -164,7 +164,7 @@ abstract final class AppTheme {
 
       navigationBarTheme: NavigationBarThemeData(
         backgroundColor: AppColors.surface,
-        indicatorColor: AppColors.primary.withOpacity(0.2),
+        indicatorColor: AppColors.primary.withValues(alpha: 0.2),
         labelTextStyle: WidgetStateProperty.resolveWith((states) {
           if (states.contains(WidgetState.selected)) {
             return GoogleFonts.inter(
@@ -183,7 +183,7 @@ abstract final class AppTheme {
 
       chipTheme: ChipThemeData(
         backgroundColor: AppColors.card,
-        selectedColor: AppColors.primary.withOpacity(0.2),
+        selectedColor: AppColors.primary.withValues(alpha: 0.2),
         disabledColor: AppColors.card,
         side: const BorderSide(color: AppColors.border),
         labelStyle: GoogleFonts.inter(fontSize: 13, color: AppColors.textSecondary),
@@ -245,7 +245,7 @@ abstract final class AppTheme {
         }),
         trackColor: WidgetStateProperty.resolveWith((states) {
           if (states.contains(WidgetState.selected)) {
-            return AppColors.primary.withOpacity(0.3);
+            return AppColors.primary.withValues(alpha: 0.1);
           }
           return AppColors.border;
         }),

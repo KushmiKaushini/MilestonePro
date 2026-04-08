@@ -76,7 +76,7 @@ class GoalDetailScreen extends ConsumerWidget {
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                         colors: [
-                          color.withOpacity(0.25),
+                          color.withValues(alpha: 0.25),
                           AppColors.background,
                         ],
                       ),
@@ -92,7 +92,7 @@ class GoalDetailScreen extends ConsumerWidget {
                               width: 52,
                               height: 52,
                               decoration: BoxDecoration(
-                                color: color.withOpacity(0.2),
+                                color: color.withValues(alpha: 0.2),
                                 borderRadius: BorderRadius.circular(14),
                               ),
                               child: Icon(
@@ -109,7 +109,7 @@ class GoalDetailScreen extends ConsumerWidget {
                                   Text(
                                     goal.category,
                                     style: TextStyle(
-                                        color: color.withOpacity(0.8),
+                                        color: color.withValues(alpha: 0.8),
                                         fontSize: 12,
                                         fontWeight: FontWeight.w500),
                                   ),

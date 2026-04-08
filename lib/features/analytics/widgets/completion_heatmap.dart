@@ -106,9 +106,9 @@ class CompletionHeatmap extends StatelessWidget {
 
   Color _cellColor(int count) {
     if (count == 0) return AppColors.border;
-    if (count == 1) return AppColors.primary.withOpacity(0.25);
-    if (count == 2) return AppColors.primary.withOpacity(0.45);
-    if (count <= 4) return AppColors.primary.withOpacity(0.65);
+    if (count == 1) return AppColors.primary.withValues(alpha: 0.25);
+    if (count == 2) return AppColors.primary.withValues(alpha: 0.45);
+    if (count <= 4) return AppColors.primary.withValues(alpha: 0.65);
     return AppColors.primary;
   }
 }

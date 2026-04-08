@@ -69,7 +69,7 @@ class MilestoneDetailScreen extends ConsumerWidget {
                 decoration: BoxDecoration(
                   color: AppColors.card,
                   borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: priorityColor.withOpacity(0.3)),
+                  border: Border.all(color: priorityColor.withValues(alpha: 0.3)),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -80,7 +80,7 @@ class MilestoneDetailScreen extends ConsumerWidget {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 10, vertical: 4),
                           decoration: BoxDecoration(
-                            color: priorityColor.withOpacity(0.15),
+                            color: priorityColor.withValues(alpha: 0.15),
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: Text(

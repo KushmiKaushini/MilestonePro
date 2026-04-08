@@ -79,7 +79,7 @@ class _RingPainter extends CustomPainter {
       ..shader = SweepGradient(
         startAngle: -math.pi / 2,
         endAngle: -math.pi / 2 + 2 * math.pi * progress,
-        colors: [color.withOpacity(0.6), color],
+        colors: [color.withValues(alpha: 0.6), color],
       ).createShader(rect)
       ..strokeWidth = strokeWidth
       ..style = PaintingStyle.stroke

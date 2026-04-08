@@ -2,6 +2,8 @@ import 'package:isar/isar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../datasources/isar_service.dart';
 import '../models/goal.dart';
+import '../models/milestone.dart';
+import '../models/task_item.dart';
 
 // ── Provider ──────────────────────────────────────────────────────────────────
 
@@ -58,6 +60,30 @@ class GoalRepository {
 
   Future<void> delete(int id) async {
     await _isar.writeTxn(() => _isar.goals.delete(id));
+  }
+
+  Future<void> deleteRecursive(int id) async {
+    final goal = await _isar.goals.get(id);
+    if (goal == null) return;
+
+    await _isar.writeTxn(() async {
+      // 1. Get all milestones for this goal
+      final milestones = await _isar.milestones
+          .filter()
+          .goalUidEqualTo(goal.uid)
+          .findAll();
+
+      // 2. Delete all tasks for these milestones
+      for (final m in milestones) {
+        await _isar.taskItems.filter().milestoneUidEqualTo(m.uid).deleteAll();
+      }
+
+      // 3. Delete all milestones
+      await _isar.milestones.filter().goalUidEqualTo(goal.uid).deleteAll();
+
+      // 4. Delete the goal
+      await _isar.goals.delete(id);
+    });
   }
 
   Future<void> archive(int id) async {

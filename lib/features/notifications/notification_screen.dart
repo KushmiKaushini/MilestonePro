@@ -151,8 +151,8 @@ class _NotificationScreenState extends State<NotificationScreen>
                   height: 100,
                   decoration: BoxDecoration(
                     color: _solved
-                        ? AppColors.success.withOpacity(0.2)
-                        : AppColors.primary.withOpacity(0.18),
+                        ? AppColors.success.withValues(alpha: 0.2)
+                        : AppColors.primary.withValues(alpha: 0.18),
                     shape: BoxShape.circle,
                     border: Border.all(
                       color: _solved ? AppColors.success : AppColors.primary,
@@ -201,7 +201,7 @@ class _NotificationScreenState extends State<NotificationScreen>
                     color: AppColors.card,
                     borderRadius: BorderRadius.circular(20),
                     border:
-                        Border.all(color: AppColors.primary.withOpacity(0.4)),
+                        Border.all(color: AppColors.primary.withValues(alpha: 0.3)),
                   ),
                   child: Column(
                     children: [

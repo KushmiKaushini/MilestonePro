@@ -2,6 +2,7 @@ import 'package:isar/isar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../datasources/isar_service.dart';
 import '../models/milestone.dart';
+import '../models/task_item.dart';
 
 // ── Providers ─────────────────────────────────────────────────────────────────
 
@@ -63,7 +64,15 @@ class MilestoneRepository {
   }
 
   Future<void> delete(int id) async {
-    await _isar.writeTxn(() => _isar.milestones.delete(id));
+    final m = await _isar.milestones.get(id);
+    if (m == null) return;
+
+    await _isar.writeTxn(() async {
+      // 1. Delete child tasks
+      await _isar.taskItems.filter().milestoneUidEqualTo(m.uid).deleteAll();
+      // 2. Delete the milestone
+      await _isar.milestones.delete(id);
+    });
   }
 
   Future<void> markComplete(int id) async {

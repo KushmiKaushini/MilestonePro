@@ -138,7 +138,7 @@ class _CreateMilestoneScreenState
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       decoration: BoxDecoration(
                         color: isSelected
-                            ? color.withOpacity(0.2)
+                            ? color.withValues(alpha: 0.2)
                             : AppColors.card,
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(
@@ -267,14 +267,14 @@ class _CreateMilestoneScreenState
                             child: child!,
                           ),
                         );
-                        if (date == null || !mounted) return;
-                        // Cache context-dependent objects before await gap
-                        final timeCtx = context;
+                        if (date == null || !context.mounted) return;
+                        
                         final time = await showTimePicker(
-                          context: timeCtx,
+                          context: context,
                           initialTime: const TimeOfDay(hour: 9, minute: 0),
                         );
-                        if (time == null || !mounted) return;
+                        
+                        if (time == null || !context.mounted) return;
                         setState(() {
                           _alarmDateTime = DateTime(
                               date.year, date.month, date.day,
