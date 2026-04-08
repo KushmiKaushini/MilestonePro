@@ -18,8 +18,8 @@ dependencies:
   go_router: ^14.8.1
 
   # Local Database
-  isar: ^3.1.0+1
-  isar_flutter_libs: ^3.1.0+1
+  isar_plus: ^1.2.5
+  isar_plus_flutter_libs: ^1.2.5
   path_provider: ^2.1.5
 
   # Notifications & Alarms
@@ -42,7 +42,7 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^6.0.0
   build_runner: ^2.4.13
-  isar_generator: ^3.1.0+1
+  isar_plus_generator: ^1.2.5
 
 flutter:
   uses-material-design: true
