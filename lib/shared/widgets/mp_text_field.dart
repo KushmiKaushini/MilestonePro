@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../core/theme/app_colors.dart';
 
 class MpTextField extends StatelessWidget {
   const MpTextField({
@@ -50,14 +51,34 @@ class MpTextField extends StatelessWidget {
       onTap: onTap,
       readOnly: readOnly,
       autofocus: autofocus,
+      style: const TextStyle(
+        color: AppColors.textPrimary,
+        fontSize: 15,
+        fontWeight: FontWeight.w500,
+      ),
       textInputAction: textInputAction,
       focusNode: focusNode,
       initialValue: controller == null ? initialValue : null,
       decoration: InputDecoration(
         labelText: label,
         hintText: hint,
-        prefixIcon: prefixIcon != null ? Icon(prefixIcon) : null,
+        prefixIcon: prefixIcon != null ? Icon(prefixIcon, size: 20, color: AppColors.textSecondary) : null,
         suffixIcon: suffixIcon,
+        filled: true,
+        fillColor: AppColors.glassFill.withValues(alpha: 0.05),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: BorderSide(color: AppColors.glassBorder.withValues(alpha: 0.1), width: 1.2),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: const BorderSide(color: AppColors.primary, width: 1.5),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: const BorderSide(color: AppColors.error, width: 1.2),
+        ),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
       ),
     );
   }

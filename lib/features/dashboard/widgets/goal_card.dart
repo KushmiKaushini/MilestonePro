@@ -1,10 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import '../../../core/theme/app_colors.dart';
-import '../../../core/utils/constants.dart';
-import '../../../core/utils/app_date_utils.dart';
-import '../../../data/models/goal.dart';
+import '../../core/utils/app_date_utils.dart';
+import '../../data/models/goal.dart';
 import 'progress_ring.dart';
+import '../../../shared/widgets/mp_glass_card.dart';
 
 class GoalCard extends StatelessWidget {
   const GoalCard({super.key, required this.goal});
@@ -13,29 +10,26 @@ class GoalCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color =
-        AppColors.goalColors[goal.colorIndex % AppColors.goalColors.length];
+    final color = AppColors.goalColors[goal.colorIndex % AppColors.goalColors.length];
 
-    return GestureDetector(
-      onTap: () => context.push('/goals/${goal.id}'),
-      child: Container(
-        width: 188,
-        margin: const EdgeInsets.only(right: 12),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(AppConstants.radiusL),
-          border: Border.all(color: color.withValues(alpha: 0.25)),
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              color.withValues(alpha: 0.12),
-              AppColors.card,
-              AppColors.card,
-            ],
-            stops: const [0, 0.4, 1],
-          ),
+    return Container(
+      width: 200,
+      margin: const EdgeInsets.only(right: 16),
+      child: MpGlassCard(
+        onTap: () => context.push('/goals/${goal.id}'),
+        borderRadius: 28,
+        padding: const EdgeInsets.all(20),
+        borderColor: color,
+        borderOpacity: 0.3,
+        fillOpacity: 0.1,
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            color.withValues(alpha: 0.15),
+            Colors.transparent,
+          ],
         ),
-        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -43,125 +37,143 @@ class GoalCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                  width: 42,
-                  height: 42,
-                  decoration: BoxDecoration(
-                    color: color.withValues(alpha: 0.18),
-                    borderRadius: BorderRadius.circular(11),
-                  ),
-                  child: Icon(
-                    AppConstants.iconFromCode(goal.iconCode),
-                    color: color,
-                    size: 20,
+                Hero(
+                  tag: 'goal_icon_${goal.id}',
+                  child: Container(
+                    width: 48,
+                    height: 48,
+                    decoration: BoxDecoration(
+                      color: color.withValues(alpha: 0.15),
+                      borderRadius: BorderRadius.circular(16),
+                      boxShadow: [
+                        BoxShadow(
+                          color: color.withValues(alpha: 0.2),
+                          blurRadius: 10,
+                          offset: const Offset(0, 4),
+                        ),
+                      ],
+                    ),
+                    child: Icon(
+                      AppConstants.iconFromCode(goal.iconCode),
+                      color: color,
+                      size: 24,
+                    ),
                   ),
                 ),
                 ProgressRing(
                   progress: goal.progressPercent,
                   color: color,
-                  size: 38,
-                  strokeWidth: 4,
+                  size: 44,
+                  strokeWidth: 5,
                 ),
               ],
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 20),
 
             // Title
-            Text(
-              goal.title,
-              style: const TextStyle(
-                color: AppColors.textPrimary,
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
-                height: 1.3,
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Hero(
+                    tag: 'goal_title_${goal.id}',
+                    child: Material(
+                      color: Colors.transparent,
+                      child: Text(
+                        goal.title,
+                        style: const TextStyle(
+                          color: AppColors.textPrimary,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w800,
+                          height: 1.2,
+                          letterSpacing: -0.2,
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  Text(
+                    goal.category,
+                    style: TextStyle(
+                      color: color.withValues(alpha: 0.8),
+                      fontSize: 11,
+                      fontWeight: FontWeight.w700,
+                      letterSpacing: 0.5,
+                    ),
+                  ),
+                ],
               ),
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-            ),
-            const SizedBox(height: 4),
-
-            // Category
-            Text(
-              goal.category,
-              style: const TextStyle(
-                color: AppColors.textSecondary,
-                fontSize: 11,
-              ),
             ),
 
-            const Spacer(),
+            const SizedBox(height: 12),
 
             // Progress bar
             ClipRRect(
-              borderRadius: BorderRadius.circular(4),
+              borderRadius: BorderRadius.circular(6),
               child: LinearProgressIndicator(
                 value: goal.progressPercent,
-                backgroundColor: AppColors.border,
+                backgroundColor: AppColors.border.withValues(alpha: 0.3),
                 valueColor: AlwaysStoppedAnimation<Color>(color),
-                minHeight: 3,
+                minHeight: 4,
               ),
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 12),
 
-            // Milestones count + due date
+            // Footer
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Icon(Icons.flag_outlined, size: 11, color: AppColors.textHint),
-                const SizedBox(width: 4),
-                Text(
-                  '${goal.completedMilestones}/${goal.totalMilestones}',
-                  style: const TextStyle(
-                    color: AppColors.textHint,
-                    fontSize: 11,
-                  ),
+                _FooterItem(
+                  icon: Icons.flag_rounded,
+                  text: '${goal.completedMilestones}/${goal.totalMilestones}',
                 ),
-                const Spacer(),
                 if (goal.targetDate != null)
-                  Text(
-                    AppDateUtils.formatRelative(goal.targetDate!),
-                    style: TextStyle(
-                      color: goal.isOverdue
-                          ? AppColors.error
-                          : AppColors.textHint,
-                      fontSize: 10,
-                      fontWeight: FontWeight.w500,
-                    ),
+                  _FooterItem(
+                    icon: Icons.calendar_today_rounded,
+                    text: AppDateUtils.formatRelative(goal.targetDate!),
+                    isError: goal.isOverdue,
                   ),
               ],
             ),
-
-            // Streak badge
-            if (goal.currentStreak > 0) ...[
-              const SizedBox(height: 8),
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                decoration: BoxDecoration(
-                  color: AppColors.primary.withValues(alpha: 0.2),
-                  borderRadius: BorderRadius.circular(6),
-                  border:
-                      Border.all(color: AppColors.secondary.withValues(alpha: 0.3)),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const Text('🔥', style: TextStyle(fontSize: 11)),
-                    const SizedBox(width: 4),
-                    Text(
-                      '${goal.currentStreak}d streak',
-                      style: const TextStyle(
-                        color: AppColors.secondary,
-                        fontSize: 10,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
           ],
         ),
       ),
+    );
+  }
+}
+
+class _FooterItem extends StatelessWidget {
+  const _FooterItem({
+    required this.icon,
+    required this.text,
+    this.isError = false,
+  });
+
+  final IconData icon;
+  final String text;
+  final bool isError;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Icon(
+          icon,
+          size: 11,
+          color: isError ? AppColors.error : AppColors.textHint,
+        ),
+        const SizedBox(width: 4),
+        Text(
+          text,
+          style: TextStyle(
+            color: isError ? AppColors.error : AppColors.textHint,
+            fontSize: 10,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ],
     );
   }
 }

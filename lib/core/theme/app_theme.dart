@@ -14,9 +14,9 @@ abstract final class AppTheme {
       primaryContainer: AppColors.primaryDark,
       onPrimaryContainer: AppColors.primaryLight,
       secondary: AppColors.secondary,
-      onSecondary: Colors.white,
-      secondaryContainer: const Color(0xFF1A3A39),
-      onSecondaryContainer: AppColors.secondaryLight,
+      onSecondary: Colors.black,
+      secondaryContainer: const Color(0xFF00383D),
+      onSecondaryContainer: AppColors.secondary,
       error: AppColors.error,
       onError: Colors.white,
       surface: AppColors.surface,
@@ -24,41 +24,41 @@ abstract final class AppTheme {
       surfaceContainerLowest: AppColors.background,
       surfaceContainerLow: AppColors.surface,
       surfaceContainer: AppColors.card,
-      surfaceContainerHigh: AppColors.cardElevated,
-      surfaceContainerHighest: const Color(0xFF2A2F4A),
+      surfaceContainerHigh: const Color(0xFF1E212E),
+      surfaceContainerHighest: const Color(0xFF282C3D),
       outline: AppColors.border,
-      outlineVariant: AppColors.divider,
+      outlineVariant: AppColors.border.withValues(alpha: 0.5),
       onSurfaceVariant: AppColors.textSecondary,
     );
 
     final textTheme = GoogleFonts.interTextTheme(base.textTheme).copyWith(
-      displayLarge: GoogleFonts.inter(
-          color: AppColors.textPrimary, fontWeight: FontWeight.w700, fontSize: 57),
-      displayMedium: GoogleFonts.inter(
-          color: AppColors.textPrimary, fontWeight: FontWeight.w700, fontSize: 45),
-      displaySmall: GoogleFonts.inter(
-          color: AppColors.textPrimary, fontWeight: FontWeight.w700, fontSize: 36),
-      headlineLarge: GoogleFonts.inter(
+      displayLarge: GoogleFonts.plusJakartaSans(
+          color: AppColors.textPrimary, fontWeight: FontWeight.w800, fontSize: 57, letterSpacing: -1),
+      displayMedium: GoogleFonts.plusJakartaSans(
+          color: AppColors.textPrimary, fontWeight: FontWeight.w800, fontSize: 45, letterSpacing: -0.8),
+      displaySmall: GoogleFonts.plusJakartaSans(
+          color: AppColors.textPrimary, fontWeight: FontWeight.w800, fontSize: 36, letterSpacing: -0.5),
+      headlineLarge: GoogleFonts.plusJakartaSans(
           color: AppColors.textPrimary, fontWeight: FontWeight.w700, fontSize: 32),
-      headlineMedium: GoogleFonts.inter(
-          color: AppColors.textPrimary, fontWeight: FontWeight.w600, fontSize: 28),
-      headlineSmall: GoogleFonts.inter(
-          color: AppColors.textPrimary, fontWeight: FontWeight.w600, fontSize: 24),
-      titleLarge: GoogleFonts.inter(
+      headlineMedium: GoogleFonts.plusJakartaSans(
+          color: AppColors.textPrimary, fontWeight: FontWeight.w700, fontSize: 28),
+      headlineSmall: GoogleFonts.plusJakartaSans(
+          color: AppColors.textPrimary, fontWeight: FontWeight.w700, fontSize: 24),
+      titleLarge: GoogleFonts.plusJakartaSans(
           color: AppColors.textPrimary, fontWeight: FontWeight.w600, fontSize: 22),
       titleMedium: GoogleFonts.inter(
           color: AppColors.textPrimary, fontWeight: FontWeight.w600, fontSize: 16),
       titleSmall: GoogleFonts.inter(
           color: AppColors.textPrimary, fontWeight: FontWeight.w500, fontSize: 14),
-      bodyLarge: GoogleFonts.inter(color: AppColors.textPrimary, fontSize: 16),
-      bodyMedium: GoogleFonts.inter(color: AppColors.textSecondary, fontSize: 14),
+      bodyLarge: GoogleFonts.inter(color: AppColors.textPrimary, fontSize: 16, height: 1.5),
+      bodyMedium: GoogleFonts.inter(color: AppColors.textSecondary, fontSize: 14, height: 1.5),
       bodySmall: GoogleFonts.inter(color: AppColors.textSecondary, fontSize: 12),
       labelLarge: GoogleFonts.inter(
           color: AppColors.textPrimary, fontWeight: FontWeight.w600, fontSize: 14),
       labelMedium: GoogleFonts.inter(
           color: AppColors.textSecondary, fontWeight: FontWeight.w500, fontSize: 12),
       labelSmall: GoogleFonts.inter(
-          color: AppColors.textHint, fontWeight: FontWeight.w500, fontSize: 11),
+          color: AppColors.textHint, fontWeight: FontWeight.w500, fontSize: 11, letterSpacing: 0.5),
     );
 
     return base.copyWith(
@@ -128,10 +128,10 @@ abstract final class AppTheme {
           foregroundColor: Colors.white,
           disabledBackgroundColor: AppColors.border,
           elevation: 0,
-          shadowColor: Colors.transparent,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-          textStyle: GoogleFonts.inter(fontSize: 15, fontWeight: FontWeight.w600),
+          shadowColor: AppColors.primary.withValues(alpha: 0.3),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
+          textStyle: GoogleFonts.plusJakartaSans(fontSize: 15, fontWeight: FontWeight.w700),
         ),
       ),
 
@@ -152,14 +152,12 @@ abstract final class AppTheme {
         ),
       ),
 
-      floatingActionButtonTheme: const FloatingActionButtonThemeData(
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
         backgroundColor: AppColors.primary,
         foregroundColor: Colors.white,
-        elevation: 0,
-        focusElevation: 0,
-        hoverElevation: 0,
-        highlightElevation: 0,
-        shape: CircleBorder(),
+        elevation: 8,
+        shadowColor: AppColors.primary.withValues(alpha: 0.4),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       ),
 
       navigationBarTheme: NavigationBarThemeData(

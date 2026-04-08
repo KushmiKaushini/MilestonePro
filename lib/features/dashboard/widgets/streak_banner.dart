@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import '../../../core/theme/app_colors.dart';
+import '../../../shared/widgets/mp_glass_card.dart';
 
 class StreakBanner extends StatelessWidget {
   const StreakBanner({
@@ -13,74 +12,60 @@ class StreakBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
-        gradient: LinearGradient(
-          colors: [
-            AppColors.secondary.withValues(alpha: 0.25),
-            AppColors.secondary.withValues(alpha: 0.08),
-          ],
-        ),
-        border: Border.all(color: AppColors.secondary.withValues(alpha: 0.35)),
+    return MpGlassCard(
+      borderRadius: 24,
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+      borderColor: AppColors.secondary,
+      borderOpacity: 0.25,
+      fillOpacity: 0.1,
+      gradient: LinearGradient(
+        colors: [
+          AppColors.secondary.withValues(alpha: 0.15),
+          Colors.transparent,
+        ],
       ),
       child: Row(
         children: [
-          // Flame icon with glow
+          // Flame icon with vibrancy
           Container(
-            width: 48,
-            height: 48,
+            width: 52,
+            height: 52,
             decoration: BoxDecoration(
-              color: AppColors.secondary.withValues(alpha: 0.18),
+              color: AppColors.secondary.withValues(alpha: 0.15),
               shape: BoxShape.circle,
+              boxShadow: [
+                BoxShadow(
+                  color: AppColors.secondary.withValues(alpha: 0.2),
+                  blurRadius: 12,
+                ),
+              ],
             ),
             child: const Center(
-              child: Text('🔥', style: TextStyle(fontSize: 22)),
+              child: Text('🔥', style: TextStyle(fontSize: 24)),
             ),
           ),
-          const SizedBox(width: 12),
+          const SizedBox(width: 16),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  children: [
-                    Text(
-                      '$streakDays-Day Streak',
-                      style: const TextStyle(
-                        color: AppColors.secondary,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    if (streakDays >= 7)
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 6, vertical: 2),
-                        decoration: BoxDecoration(
-                          color: AppColors.secondary.withValues(alpha: 0.2),
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        child: const Text(
-                          'On fire!',
-                          style: TextStyle(
-                            color: AppColors.secondary,
-                            fontSize: 10,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                  ],
+                Text(
+                  '$streakDays-DAY STREAK',
+                  style: const TextStyle(
+                    color: AppColors.secondary,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w800,
+                    letterSpacing: 1.2,
+                  ),
                 ),
                 const SizedBox(height: 2),
                 Text(
                   goalTitle,
                   style: const TextStyle(
-                    color: AppColors.textSecondary,
-                    fontSize: 12,
+                    color: AppColors.textPrimary,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w700,
+                    height: 1.2,
                   ),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
@@ -88,22 +73,26 @@ class StreakBanner extends StatelessWidget {
               ],
             ),
           ),
-          // Progress hint
-          Column(
-            children: [
-              Text(
-                'Keep it up!',
+          const SizedBox(width: 12),
+          // "On Fire" Badge
+          if (streakDays >= 7)
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+              decoration: BoxDecoration(
+                color: AppColors.secondary.withValues(alpha: 0.15),
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: AppColors.secondary.withValues(alpha: 0.3)),
+              ),
+              child: const Text(
+                'ON FIRE',
                 style: TextStyle(
-                  color: AppColors.secondary.withValues(alpha: 0.7),
-                  fontSize: 11,
-                  fontWeight: FontWeight.w500,
+                  color: AppColors.secondary,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w900,
+                  letterSpacing: 1,
                 ),
               ),
-              const SizedBox(height: 4),
-              Icon(Icons.arrow_forward_ios_rounded,
-                    color: AppColors.secondary.withValues(alpha: 0.7),),
-            ],
-          ),
+            ),
         ],
       ),
     );

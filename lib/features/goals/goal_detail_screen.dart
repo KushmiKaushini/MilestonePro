@@ -88,17 +88,27 @@ class GoalDetailScreen extends ConsumerWidget {
                       children: [
                         Row(
                           children: [
-                            Container(
-                              width: 52,
-                              height: 52,
-                              decoration: BoxDecoration(
-                                color: color.withValues(alpha: 0.2),
-                                borderRadius: BorderRadius.circular(14),
-                              ),
-                              child: Icon(
-                                AppConstants.iconFromCode(goal.iconCode),
-                                color: color,
-                                size: 26,
+                            Hero(
+                              tag: 'goal_icon_${goal.id}',
+                              child: Container(
+                                width: 62,
+                                height: 62,
+                                decoration: BoxDecoration(
+                                  color: color.withValues(alpha: 0.2),
+                                  borderRadius: BorderRadius.circular(18),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: color.withValues(alpha: 0.3),
+                                      blurRadius: 20,
+                                      offset: const Offset(0, 8),
+                                    ),
+                                  ],
+                                ),
+                                child: Icon(
+                                  AppConstants.iconFromCode(goal.iconCode),
+                                  color: color,
+                                  size: 32,
+                                ),
                               ),
                             ),
                             const SizedBox(width: 14),
@@ -113,14 +123,21 @@ class GoalDetailScreen extends ConsumerWidget {
                                         fontSize: 12,
                                         fontWeight: FontWeight.w500),
                                   ),
-                                  Text(
-                                    goal.title,
-                                    style: const TextStyle(
-                                      color: AppColors.textPrimary,
-                                      fontSize: 22,
-                                      fontWeight: FontWeight.w700,
+                                  Hero(
+                                    tag: 'goal_title_${goal.id}',
+                                    child: Material(
+                                      color: Colors.transparent,
+                                      child: Text(
+                                        goal.title,
+                                        style: const TextStyle(
+                                          color: AppColors.textPrimary,
+                                          fontSize: 26,
+                                          fontWeight: FontWeight.w900,
+                                          letterSpacing: -0.5,
+                                        ),
+                                        maxLines: 2,
+                                      ),
                                     ),
-                                    maxLines: 2,
                                   ),
                                 ],
                               ),
@@ -361,29 +378,40 @@ class _StatChip extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        padding: const EdgeInsets.all(12),
+        padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: AppColors.card,
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: AppColors.border),
+          color: AppColors.glassFill.withValues(alpha: 0.05),
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: AppColors.glassBorder.withValues(alpha: 0.08)),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(icon, size: 16, color: color),
-            const SizedBox(height: 6),
+            Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: color.withValues(alpha: 0.1),
+                shape: BoxShape.circle,
+              ),
+              child: Icon(icon, size: 16, color: color),
+            ),
+            const SizedBox(height: 12),
             Text(
               value,
               style: TextStyle(
                 color: color,
-                fontSize: 14,
-                fontWeight: FontWeight.w700,
+                fontSize: 16,
+                fontWeight: FontWeight.w800,
               ),
             ),
             Text(
-              label,
+              label.toUpperCase(),
               style: const TextStyle(
-                  color: AppColors.textHint, fontSize: 11),
+                color: AppColors.textHint,
+                fontSize: 9,
+                fontWeight: FontWeight.w700,
+                letterSpacing: 0.5,
+              ),
             ),
           ],
         ),
