@@ -15,46 +15,31 @@ subprojects {
     val newSubprojectBuildDir: Directory = newBuildDir.dir(project.name)
     project.layout.buildDirectory.value(newSubprojectBuildDir)
 }
-subprojects {
-    project.evaluationDependsOn(":app")
-}
 
-tasks.register<Delete>("clean") {
-    delete(rootProject.layout.buildDirectory.get())
-}
-
+// Fix for legacy dependencies without namespace (AGP 8.11+ requirement)
 subprojects {
-    val proj = this
-    val action = Action<Project> {
-        if (proj.hasProperty("android")) {
-            val android = proj.extensions.getByName("android") as com.android.build.gradle.BaseExtension
-            if (android.namespace == null) {
-                android.namespace = proj.group.toString() + "." + proj.name.replace("-", "_")
-            }
-            
-            // AGP 8.x Manifest Sanitizer: Remove legacy 'package' attribute from plugin manifests
-            proj.tasks.configureEach {
-                if (name.contains("process") && name.contains("Manifest")) {
-                    doFirst {
-                        val manifestFile = proj.file("src/main/AndroidManifest.xml")
-                        if (manifestFile.exists()) {
-                            val content = manifestFile.readText()
-                            if (content.contains("package=")) {
-                                val sanitized = content.replace(Regex("""package="[^"]*""""), "")
-                                manifestFile.writeText(sanitized)
-                            }
-                        }
+    val configureNamespace = {
+        if (project.plugins.hasPlugin("com.android.library") || project.plugins.hasPlugin("com.android.application")) {
+            val android = project.extensions.findByName("android")
+            if (android != null) {
+                try {
+                    val namespaceMethod = android.javaClass.getMethod("getNamespace")
+                    if (namespaceMethod.invoke(android) == null) {
+                        val setNamespaceMethod = android.javaClass.getMethod("setNamespace", String::class.java)
+                        setNamespaceMethod.invoke(android, project.group.toString().ifEmpty { "com.milestone_pro.fallback" })
                     }
-                }
+                } catch (e: Exception) { }
             }
         }
     }
-    if (proj.state.executed) {
-        action.execute(proj)
+    
+    if (project.state.executed) {
+        configureNamespace()
     } else {
-        proj.afterEvaluate(action)
+        project.afterEvaluate { configureNamespace() }
     }
 }
 
-
-
+tasks.register<Delete>("clean") {
+    delete(rootProject.layout.buildDirectory)
+}
