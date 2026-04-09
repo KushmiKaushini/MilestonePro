@@ -20,7 +20,7 @@ subprojects {
 }
 
 tasks.register<Delete>("clean") {
-    delete(rootProject.layout.buildDirectory)
+    delete(rootProject.layout.buildDirectory.get())
 }
 
 subprojects {
@@ -33,7 +33,7 @@ subprojects {
             }
             
             // AGP 8.x Manifest Sanitizer: Remove legacy 'package' attribute from plugin manifests
-            proj.tasks.whenTaskAdded {
+            proj.tasks.configureEach {
                 if (name.contains("process") && name.contains("Manifest")) {
                     doFirst {
                         val manifestFile = proj.file("src/main/AndroidManifest.xml")

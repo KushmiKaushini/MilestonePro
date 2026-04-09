@@ -114,29 +114,32 @@ class GoalRepository {
 
     goal.completedMilestones = completed;
     goal.totalMilestones = total;
-    goal.lastActivityDate = DateTime.now();
-
     // Recalculate streak
-    final today = DateTime(
-        DateTime.now().year, DateTime.now().month, DateTime.now().day);
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
     final last = goal.lastActivityDate != null
         ? DateTime(goal.lastActivityDate!.year, goal.lastActivityDate!.month,
             goal.lastActivityDate!.day)
         : null;
 
-    if (last != null) {
+    if (last == null) {
+      goal.currentStreak = 1;
+    } else {
       final daysSinceLast = today.difference(last).inDays;
-      if (daysSinceLast <= 1) {
+      if (daysSinceLast == 1) {
         goal.currentStreak += 1;
-      } else {
+      } else if (daysSinceLast > 1) {
         goal.currentStreak = 1;
       }
-      if (goal.currentStreak > goal.longestStreak) {
-        goal.longestStreak = goal.currentStreak;
-      }
+      // if daysSinceLast == 0, streak remains unchanged as it's the same day
     }
 
-    goal.updatedAt = DateTime.now();
+    if (goal.currentStreak > goal.longestStreak) {
+      goal.longestStreak = goal.currentStreak;
+    }
+
+    goal.lastActivityDate = now;
+    goal.updatedAt = now;
     await _isar.writeTxn(() => _isar.goals.put(goal));
   }
 }

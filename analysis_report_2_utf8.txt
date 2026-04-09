@@ -1,0 +1,53 @@
+﻿Analyzing MilestonePro...                                       
+
+warning - Unused import: 'package:flutter/material.dart' - lib\core\router\app_router.dart:1:8 - unused_import
+warning - The value of the local variable 'extras' isn't used - lib\core\router\app_router.dart:91:17 - unused_local_variable
+warning - The value of the local variable 'extras' isn't used - lib\core\router\app_router.dart:106:17 - unused_local_variable
+warning - 'getByIndex' is experimental and could be removed or changed at any time - lib\data\models\goal.g.dart:297:12 - experimental_member_use
+warning - 'getByIndexSync' is experimental and could be removed or changed at any time - lib\data\models\goal.g.dart:301:12 - experimental_member_use
+warning - 'deleteByIndex' is experimental and could be removed or changed at any time - lib\data\models\goal.g.dart:305:12 - experimental_member_use
+warning - 'deleteByIndexSync' is experimental and could be removed or changed at any time - lib\data\models\goal.g.dart:309:12 - experimental_member_use
+warning - 'getAllByIndex' is experimental and could be removed or changed at any time - lib\data\models\goal.g.dart:314:12 - experimental_member_use
+warning - 'getAllByIndexSync' is experimental and could be removed or changed at any time - lib\data\models\goal.g.dart:319:12 - experimental_member_use
+warning - 'deleteAllByIndex' is experimental and could be removed or changed at any time - lib\data\models\goal.g.dart:324:12 - experimental_member_use
+warning - 'deleteAllByIndexSync' is experimental and could be removed or changed at any time - lib\data\models\goal.g.dart:329:12 - experimental_member_use
+warning - 'putByIndex' is experimental and could be removed or changed at any time - lib\data\models\goal.g.dart:333:12 - experimental_member_use
+warning - 'putByIndexSync' is experimental and could be removed or changed at any time - lib\data\models\goal.g.dart:337:12 - experimental_member_use
+warning - 'putAllByIndex' is experimental and could be removed or changed at any time - lib\data\models\goal.g.dart:341:12 - experimental_member_use
+warning - 'putAllByIndexSync' is experimental and could be removed or changed at any time - lib\data\models\goal.g.dart:345:12 - experimental_member_use
+warning - 'getByIndex' is experimental and could be removed or changed at any time - lib\data\models\milestone.g.dart:284:12 - experimental_member_use
+warning - 'getByIndexSync' is experimental and could be removed or changed at any time - lib\data\models\milestone.g.dart:288:12 - experimental_member_use
+warning - 'deleteByIndex' is experimental and could be removed or changed at any time - lib\data\models\milestone.g.dart:292:12 - experimental_member_use
+warning - 'deleteByIndexSync' is experimental and could be removed or changed at any time - lib\data\models\milestone.g.dart:296:12 - experimental_member_use
+warning - 'getAllByIndex' is experimental and could be removed or changed at any time - lib\data\models\milestone.g.dart:301:12 - experimental_member_use
+warning - 'getAllByIndexSync' is experimental and could be removed or changed at any time - lib\data\models\milestone.g.dart:306:12 - experimental_member_use
+warning - 'deleteAllByIndex' is experimental and could be removed or changed at any time - lib\data\models\milestone.g.dart:311:12 - experimental_member_use
+warning - 'deleteAllByIndexSync' is experimental and could be removed or changed at any time - lib\data\models\milestone.g.dart:316:12 - experimental_member_use
+warning - 'putByIndex' is experimental and could be removed or changed at any time - lib\data\models\milestone.g.dart:320:12 - experimental_member_use
+warning - 'putByIndexSync' is experimental and could be removed or changed at any time - lib\data\models\milestone.g.dart:324:12 - experimental_member_use
+warning - 'putAllByIndex' is experimental and could be removed or changed at any time - lib\data\models\milestone.g.dart:328:12 - experimental_member_use
+warning - 'putAllByIndexSync' is experimental and could be removed or changed at any time - lib\data\models\milestone.g.dart:332:12 - experimental_member_use
+warning - 'getByIndex' is experimental and could be removed or changed at any time - lib\data\models\task_item.g.dart:197:12 - experimental_member_use
+warning - 'getByIndexSync' is experimental and could be removed or changed at any time - lib\data\models\task_item.g.dart:201:12 - experimental_member_use
+warning - 'deleteByIndex' is experimental and could be removed or changed at any time - lib\data\models\task_item.g.dart:205:12 - experimental_member_use
+warning - 'deleteByIndexSync' is experimental and could be removed or changed at any time - lib\data\models\task_item.g.dart:209:12 - experimental_member_use
+warning - 'getAllByIndex' is experimental and could be removed or changed at any time - lib\data\models\task_item.g.dart:214:12 - experimental_member_use
+warning - 'getAllByIndexSync' is experimental and could be removed or changed at any time - lib\data\models\task_item.g.dart:219:12 - experimental_member_use
+warning - 'deleteAllByIndex' is experimental and could be removed or changed at any time - lib\data\models\task_item.g.dart:224:12 - experimental_member_use
+warning - 'deleteAllByIndexSync' is experimental and could be removed or changed at any time - lib\data\models\task_item.g.dart:229:12 - experimental_member_use
+warning - 'putByIndex' is experimental and could be removed or changed at any time - lib\data\models\task_item.g.dart:233:12 - experimental_member_use
+warning - 'putByIndexSync' is experimental and could be removed or changed at any time - lib\data\models\task_item.g.dart:237:12 - experimental_member_use
+warning - 'putAllByIndex' is experimental and could be removed or changed at any time - lib\data\models\task_item.g.dart:241:12 - experimental_member_use
+warning - 'putAllByIndexSync' is experimental and could be removed or changed at any time - lib\data\models\task_item.g.dart:245:12 - experimental_member_use
+warning - Unnecessary cast - lib\data\repositories\milestone_repository.dart:64:55 - unnecessary_cast
+warning - The value of the local variable 'weekIndex' isn't used - lib\features\analytics\widgets\completion_heatmap.dart:46:19 - unused_local_variable
+   info - Unnecessary use of multiple underscores - lib\features\analytics\widgets\velocity_chart.dart:82:40 - unnecessary_underscores
+   info - Unnecessary use of multiple underscores - lib\features\analytics\widgets\velocity_chart.dart:82:44 - unnecessary_underscores
+warning - Unused import: '../../core/utils/constants.dart' - lib\features\dashboard\dashboard_screen.dart:7:8 - unused_import
+   info - Unnecessary use of multiple underscores - lib\features\dashboard\dashboard_screen.dart:87:28 - unnecessary_underscores
+   info - Unnecessary use of multiple underscores - lib\features\dashboard\dashboard_screen.dart:186:45 - unnecessary_underscores
+   info - Unnecessary use of multiple underscores - lib\features\dashboard\dashboard_screen.dart:207:28 - unnecessary_underscores
+   info - Unnecessary use of multiple underscores - lib\features\goals\goal_detail_screen.dart:340:28 - unnecessary_underscores
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\milestones\milestone_detail_screen.dart:102:56 - deprecated_member_use
+   info - Unnecessary use of multiple underscores - lib\features\milestones\milestone_detail_screen.dart:323:28 - unnecessary_underscores
+

@@ -23,24 +23,29 @@ class NotificationService {
   Future<void> initialize() async {
     if (_initialized) return;
 
-    const androidInit = AndroidInitializationSettings('@mipmap/ic_launcher');
-    const iosInit = DarwinInitializationSettings(
-      requestAlertPermission: true,
-      requestBadgePermission: true,
-      requestSoundPermission: true,
-    );
+    try {
+      const androidInit = AndroidInitializationSettings('@mipmap/ic_launcher');
+      const iosInit = DarwinInitializationSettings(
+        requestAlertPermission: true,
+        requestBadgePermission: true,
+        requestSoundPermission: true,
+      );
 
-    await _plugin.initialize(
-      settings: const InitializationSettings(android: androidInit, iOS: iosInit),
-      onDidReceiveNotificationResponse: _handleTap,
-      onDidReceiveBackgroundNotificationResponse: _backgroundTapHandler,
-    );
+      final success = await _plugin.initialize(
+        settings: const InitializationSettings(android: androidInit, iOS: iosInit),
+        onDidReceiveNotificationResponse: _handleTap,
+        onDidReceiveBackgroundNotificationResponse: _backgroundTapHandler,
+      );
 
-    if (Platform.isAndroid) {
-      await _createChannels();
+      if (success == true) {
+        if (Platform.isAndroid) {
+          await _createChannels();
+        }
+        _initialized = true;
+      }
+    } catch (e) {
+      debugPrint('NotificationService: Failed to initialize: $e');
     }
-
-    _initialized = true;
   }
 
   // ── Channels ────────────────────────────────────────────────────────────────

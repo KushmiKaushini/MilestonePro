@@ -99,7 +99,7 @@ class MilestoneDetailScreen extends ConsumerWidget {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 10, vertical: 4),
                             decoration: BoxDecoration(
-                              color: AppColors.success.withOpacity(0.15),
+                              color: AppColors.success.withValues(alpha: 0.15),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: const Text(
@@ -320,7 +320,7 @@ class MilestoneDetailScreen extends ConsumerWidget {
                 },
                 loading: () =>
                     const Center(child: CircularProgressIndicator()),
-                error: (_, __) => const SizedBox.shrink(),
+                error: (_, _) => const SizedBox.shrink(),
               ),
             ],
           ),

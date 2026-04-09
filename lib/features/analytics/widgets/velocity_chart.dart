@@ -79,7 +79,7 @@ class VelocityChart extends StatelessWidget {
             isStrokeCapRound: true,
             dotData: FlDotData(
               show: true,
-              getDotPainter: (spot, _, __, ___) => FlDotCirclePainter(
+              getDotPainter: (spot, _, _, _) => FlDotCirclePainter(
                 radius: 3,
                 color: AppColors.primary,
                 strokeWidth: 2,

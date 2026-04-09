@@ -156,7 +156,6 @@ abstract final class AppTheme {
         backgroundColor: AppColors.primary,
         foregroundColor: Colors.white,
         elevation: 8,
-        shadowColor: AppColors.primary.withValues(alpha: 0.4),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       ),
 

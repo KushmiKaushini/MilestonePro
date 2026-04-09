@@ -28,6 +28,8 @@ class TaskRepository {
 
   final Isar _isar;
 
+  Future<TaskItem?> getById(int id) => _isar.taskItems.get(id);
+
   Future<List<TaskItem>> getForMilestone(String milestoneUid) =>
       _isar.taskItems
           .filter()

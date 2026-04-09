@@ -16,7 +16,8 @@ class AnalyticsData {
     required this.currentStreak,
     required this.velocityByWeek,
     required this.categoryBreakdown,
-    required this.activityByDay,
+    required this.activityByDayOfWeek,
+    required this.activityByFullDate,
     required this.suggestedPeakHour,
   });
 
@@ -34,7 +35,10 @@ class AnalyticsData {
   final Map<String, int> categoryBreakdown;
 
   /// day-of-week (0=Mon…6=Sun) → completion count
-  final Map<int, int> activityByDay;
+  final Map<int, int> activityByDayOfWeek;
+
+  /// Full Date → completion count (for heatmap)
+  final Map<DateTime, int> activityByFullDate;
 
   /// Hour of day (0–23) when the user most often completes milestones.
   final int suggestedPeakHour;
@@ -63,10 +67,8 @@ class AnalyticsUseCases {
 
   Future<AnalyticsData> compute() async {
     final goals = await goalRepo?.getAll(includeArchived: true) ?? <Goal>[];
-    final milestones = <Milestone>[];
-    for (final g in goals) {
-      milestones.addAll(await milestoneRepo?.getForGoal(g.uid) ?? []);
-    }
+    final goalUids = goals.map((g) => g.uid).toList();
+    final milestones = await milestoneRepo?.getForGoals(goalUids) ?? <Milestone>[];
 
     final completed = milestones.where((m) => m.isCompleted).toList();
     final now = DateTime.now();
@@ -88,12 +90,20 @@ class AnalyticsUseCases {
       }
     }
 
-    // ── Activity by day of week ───────────────────────────────────────────
-    final dayMap = <int, int>{};
+    // ── Activity by day (heatmap & day-of-week) ──────────────────────────
+    final dayOfWeekMap = <int, int>{};
+    final fullDateMap = <DateTime, int>{};
     for (final m in completed) {
-      // weekday: 1=Mon…7=Sun → convert to 0-indexed
+      if (m.completedAt == null) continue;
+      
+      // day-of-week: 1=Mon…7=Sun → convert to 0-indexed
       final dow = (m.completedAt!.weekday - 1) % 7;
-      dayMap[dow] = (dayMap[dow] ?? 0) + 1;
+      dayOfWeekMap[dow] = (dayOfWeekMap[dow] ?? 0) + 1;
+
+      // full-date: strip time
+      final date = DateTime(
+          m.completedAt!.year, m.completedAt!.month, m.completedAt!.day);
+      fullDateMap[date] = (fullDateMap[date] ?? 0) + 1;
     }
 
     // ── Peak hour (smart scheduling hook) ────────────────────────────────
@@ -124,7 +134,8 @@ class AnalyticsUseCases {
       currentStreak: currentStreak,
       velocityByWeek: velocity,
       categoryBreakdown: categoryMap,
-      activityByDay: dayMap,
+      activityByDayOfWeek: dayOfWeekMap,
+      activityByFullDate: fullDateMap,
       suggestedPeakHour: peakHour,
     );
   }

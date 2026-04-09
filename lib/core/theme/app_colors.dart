@@ -29,6 +29,8 @@ abstract final class AppColors {
   static const Color textPrimary = Colors.white;
   static const Color textSecondary = Color(0xFFB0B3C1);
   static const Color textHint = Color(0xFF6B6E7B);
+  static const Color divider = Color(0xFF222533);
+  static const Color cardElevated = Color(0xFF1E2230);
 
   // ── Borders & Glows ───────────────────────────────────────────────────────
   static const Color border = Color(0xFF222533);

@@ -46,7 +46,7 @@ class GoalDetailScreen extends ConsumerWidget {
                     color: AppColors.card,
                     onSelected: (v) async {
                       if (v == 'edit') {
-                        // TODO: navigate to edit screen
+                        context.push('/goals/${goal.id}/edit');
                       } else if (v == 'archive') {
                         await ref
                             .read(goalRepositoryProvider)
@@ -337,7 +337,7 @@ class GoalDetailScreen extends ConsumerWidget {
                 loading: () => const SliverToBoxAdapter(
                   child: Center(child: CircularProgressIndicator()),
                 ),
-                error: (_, __) =>
+                error: (_, _) =>
                     const SliverToBoxAdapter(child: SizedBox.shrink()),
               ),
 

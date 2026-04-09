@@ -95,8 +95,11 @@ class MilestoneUseCases {
   }
 
   Future<void> toggleTask(int taskId) async {
-    // Use direct toggle
+    final task = await taskRepo?.getById(taskId);
+    if (task == null) return;
+
     await taskRepo?.toggle(taskId);
+    await _refreshMilestoneTaskProgress(task.milestoneUid);
   }
 
   Future<void> deleteTask(int taskId, String milestoneUid) async {

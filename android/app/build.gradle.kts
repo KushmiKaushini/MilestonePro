@@ -1,15 +1,13 @@
 plugins {
     id("com.android.application")
-    id("kotlin-android")
-    // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
+    id("org.jetbrains.kotlin.android")
     id("dev.flutter.flutter-gradle-plugin")
 }
 
 android {
     namespace = "com.example.milestone_pro"
-    compileSdk = 36
-    buildToolsVersion = "35.0.0"
-    ndkVersion = flutter.ndkVersion
+    // Keep 35 for now unless you specifically need Android 16 features
+    compileSdk = 35 
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -17,29 +15,25 @@ android {
         isCoreLibraryDesugaringEnabled = true
     }
 
+    // Fixed the Line 26 error from your previous log
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.toString()
+        jvmTarget = "17"
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "com.example.milestone_pro"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion
-        targetSdk = 36
+        targetSdk = 35
         versionCode = flutter.versionCode
         versionName = flutter.versionName
     }
 
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig = signingConfigs.getByName("debug")
         }
     }
-}
+} // Make sure this closing brace exists!
 
 flutter {
     source = "../.."

@@ -3,15 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../core/theme/app_colors.dart';
 import '../../shared/widgets/mp_button.dart';
+import '../../data/repositories/settings_repository.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class OnboardingScreen extends StatefulWidget {
+class OnboardingScreen extends ConsumerStatefulWidget {
   const OnboardingScreen({super.key});
 
   @override
-  State<OnboardingScreen> createState() => _OnboardingScreenState();
+  ConsumerState<OnboardingScreen> createState() => _OnboardingScreenState();
 }
 
-class _OnboardingScreenState extends State<OnboardingScreen> {
+class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
 
@@ -42,6 +44,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     super.dispose();
   }
 
+  Future<void> _complete() async {
+    await ref.read(settingsRepositoryProvider)?.updateOnboardingCompleted(true);
+    if (mounted) context.go('/dashboard');
+  }
+
   void _next() {
     if (_currentPage < _pages.length - 1) {
       _pageController.nextPage(
@@ -49,7 +56,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         curve: Curves.easeInOut,
       );
     } else {
-      context.go('/dashboard');
+      _complete();
     }
   }
 
@@ -64,7 +71,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             Align(
               alignment: Alignment.centerRight,
               child: TextButton(
-                onPressed: () => context.go('/dashboard'),
+                onPressed: _complete,
                 child: const Text('Skip'),
               ),
             ),

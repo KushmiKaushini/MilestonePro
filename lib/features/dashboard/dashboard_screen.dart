@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/utils/app_date_utils.dart';
-import '../../core/utils/constants.dart';
 import '../../data/repositories/goal_repository.dart';
 import '../../data/repositories/milestone_repository.dart';
 import '../../shared/widgets/empty_state.dart';
@@ -84,7 +83,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> with SingleTi
                   );
                 },
                 loading: () => const SliverToBoxAdapter(child: SizedBox.shrink()),
-                error: (_, __) => const SliverToBoxAdapter(child: SizedBox.shrink()),
+                error: (_, _) => const SliverToBoxAdapter(child: SizedBox.shrink()),
               ),
 
               // ── Section: Active Goals ─────────────────────────────────────
@@ -183,7 +182,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> with SingleTi
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     sliver: SliverList.separated(
                       itemCount: milestones.length,
-                      separatorBuilder: (_, __) => const SizedBox(height: 12),
+                      separatorBuilder: (_, _) => const SizedBox(height: 12),
                       itemBuilder: (_, i) {
                         final m = milestones[i];
                         final priorityColor = AppColors.priorityColors[m.priority.clamp(0, 3)];
@@ -204,7 +203,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> with SingleTi
                   );
                 },
                 loading: () => const SliverToBoxAdapter(child: SizedBox.shrink()),
-                error: (_, __) => const SliverToBoxAdapter(child: SizedBox.shrink()),
+                error: (_, _) => const SliverToBoxAdapter(child: SizedBox.shrink()),
               ),
 
               const SliverToBoxAdapter(child: SizedBox(height: 140)),

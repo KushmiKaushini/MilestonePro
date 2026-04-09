@@ -27,11 +27,10 @@ final milestonesForGoalProvider =
 final upcomingMilestonesProvider =
     StreamProvider<List<Milestone>>((ref) async* {
   final isar = await ref.watch(isarProvider.future);
-  final now = DateTime.now();
   yield* isar.milestones
       .filter()
       .isCompletedEqualTo(false)
-      .dueDateGreaterThan(now.subtract(const Duration(seconds: 1)))
+      // Include overdue items as well as upcoming ones
       .sortByDueDate()
       .limit(10)
       .watch(fireImmediately: true);
@@ -57,6 +56,14 @@ class MilestoneRepository {
 
   Future<List<Milestone>> getForGoal(String goalUid) =>
       _isar.milestones.filter().goalUidEqualTo(goalUid).findAll();
+
+  Future<List<Milestone>> getForGoals(List<String> goalUids) {
+    if (goalUids.isEmpty) return Future.value([]);
+    return _isar.milestones
+        .filter()
+        .anyOf(goalUids, (q, uid) => q.goalUidEqualTo(uid))
+        .findAll();
+  }
 
   Future<void> save(Milestone milestone) async {
     milestone.updatedAt = DateTime.now();

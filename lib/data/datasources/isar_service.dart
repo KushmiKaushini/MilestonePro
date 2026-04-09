@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/goal.dart';
 import '../models/milestone.dart';
 import '../models/task_item.dart';
+import '../models/app_settings.dart';
 
 /// Riverpod provider that opens (and caches) the Isar database.
 /// Use `ref.watch(isarProvider.future)` or `ref.watch(isarProvider)` inside
@@ -11,7 +12,7 @@ import '../models/task_item.dart';
 final isarProvider = FutureProvider<Isar>((ref) async {
   final dir = await getApplicationDocumentsDirectory();
   final isar = await Isar.open(
-    [GoalSchema, MilestoneSchema, TaskItemSchema],
+    [GoalSchema, MilestoneSchema, TaskItemSchema, AppSettingsSchema],
     directory: dir.path,
     name: 'milestone_pro',
   );

@@ -158,7 +158,7 @@ class AnalyticsScreen extends ConsumerWidget {
                         ),
                       )
                     : CompletionHeatmap(
-                        activityByDay: _buildActivityMap(data),
+                        activityByDay: data.activityByFullDate,
                       ),
               ),
             ),
@@ -217,13 +217,6 @@ class AnalyticsScreen extends ConsumerWidget {
     final period = hour < 12 ? 'AM' : 'PM';
     final h = hour == 0 ? 12 : hour > 12 ? hour - 12 : hour;
     return '$h:00 $period';
-  }
-
-  Map<DateTime, int> _buildActivityMap(AnalyticsData data) {
-    // We don't have completedAt stored in analytics directly — this is 
-    // a placeholder that the CompletionHeatmap can consume once we 
-    // pass actual completedAt dates through from the repository.
-    return {};
   }
 }
 

@@ -42,9 +42,7 @@ class CompletionHeatmap extends StatelessWidget {
         // Grid
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: weekStarts.asMap().entries.map((entry) {
-            final weekIndex = entry.key;
-            final weekStart = entry.value;
+          children: weekStarts.map((weekStart) {
 
             return Expanded(
               child: Column(
