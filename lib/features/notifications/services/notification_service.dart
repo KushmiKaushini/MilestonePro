@@ -19,7 +19,7 @@ class NotificationService {
   Future<void> initialize() async {
     const androidSettings = AndroidInitializationSettings('@mipmap/ic_launcher');
     const iosSettings = DarwinInitializationSettings();
-    
+
     const initSettings = InitializationSettings(
       android: androidSettings,
       iOS: iosSettings,
@@ -29,9 +29,37 @@ class NotificationService {
       settings: initSettings,
       onDidReceiveNotificationResponse: (details) {},
     );
+
+    // Create notification channel for Android 8.0+
+    await _createNotificationChannel();
+  }
+
+  Future<void> _createNotificationChannel() async {
+    final androidImplementation = _notifications.resolvePlatformSpecificImplementation<
+        AndroidFlutterLocalNotificationsPlugin>();
+    if (androidImplementation != null) {
+      final channel = AndroidNotificationChannel(
+        'goal_reminders',
+        'Goal Reminders',
+        description: 'Notifications for your milestones',
+        importance: Importance.max,
+        showBadge: true,
+      );
+      await androidImplementation.createNotificationChannel(channel);
+    }
   }
 
   Future<void> scheduleGoalReminder(int id, String title, DateTime scheduledDate) async {
+    // Check notification permissions before scheduling
+    final androidImplementation = _notifications.resolvePlatformSpecificImplementation<
+        AndroidFlutterLocalNotificationsPlugin>();
+    if (androidImplementation != null) {
+      final granted = await androidImplementation.areNotificationsEnabled();
+      if (granted == false) {
+        return; // Don't schedule if permissions not granted
+      }
+    }
+
     await _notifications.zonedSchedule(
       id: id,
       title: 'Milestone Pro',
@@ -43,12 +71,11 @@ class NotificationService {
           'Goal Reminders',
           channelDescription: 'Notifications for your milestones',
           importance: Importance.max,
-          priority: Priority.high,
+          showWhen: true,
         ),
         iOS: DarwinNotificationDetails(),
       ),
       androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-      // uiLocalNotificationDateInterpretation might be removed or changed in v21
     );
   }
 }

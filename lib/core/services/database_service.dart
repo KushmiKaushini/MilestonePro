@@ -8,10 +8,14 @@ class DatabaseService {
   static Isar get isar => _isar;
 
   static Future<void> initialize() async {
-    final dir = await getApplicationDocumentsDirectory();
-    _isar = await Isar.open(
-      [GoalSchema, MilestoneSchema],
-      directory: dir.path,
-    );
+    try {
+      final dir = await getApplicationDocumentsDirectory();
+      _isar = await Isar.open(
+        [GoalSchema, MilestoneSchema],
+        directory: dir.path,
+      );
+    } catch (e) {
+      throw Exception('Failed to initialize database: $e');
+    }
   }
 }

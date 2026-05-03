@@ -16,7 +16,8 @@ final _routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/details/:id',
         builder: (context, state) {
-          final id = int.parse(state.pathParameters['id']!);
+          final idString = state.pathParameters['id'];
+          final id = int.parse(idString ?? '0');
           return GoalDetailsPage(goalId: id);
         },
       ),

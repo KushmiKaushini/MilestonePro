@@ -65,7 +65,7 @@ class DashboardPage extends ConsumerWidget {
                 data: (goals) {
                   final activeCount = goals.where((g) => !g.isCompleted).length;
                   final completedCount = goals.where((g) => g.isCompleted).length;
-                  
+
                   return SliverToBoxAdapter(
                     child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
@@ -109,7 +109,9 @@ class DashboardPage extends ConsumerWidget {
                   );
                 },
                 loading: () => const SliverToBoxAdapter(child: SizedBox()),
-                error: (_, __) => const SliverToBoxAdapter(child: SizedBox()),
+                error: (state, _) => SliverToBoxAdapter(
+                  child: SizedBox(),
+                ),
               ),
 
               const SliverPadding(padding: EdgeInsets.symmetric(vertical: 12)),
@@ -162,8 +164,8 @@ class DashboardPage extends ConsumerWidget {
                 loading: () => const SliverToBoxAdapter(
                   child: Center(child: CircularProgressIndicator()),
                 ),
-                error: (err, _) => SliverToBoxAdapter(
-                  child: Center(child: Text('Error: $err')),
+                error: (error, stackTrace) => SliverToBoxAdapter(
+                  child: Center(child: Text('Error: $error')),
                 ),
               ),
             ],
@@ -191,7 +193,7 @@ class DashboardPage extends ConsumerWidget {
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: Colors.white.withOpacity(0.05)),
+        border: Border.all(color: Colors.white.withAlpha((0.05 * 255).toInt())),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -199,7 +201,7 @@ class DashboardPage extends ConsumerWidget {
           Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: color.withOpacity(0.1),
+              color: color.withAlpha((0.1 * 255).toInt()),
               borderRadius: BorderRadius.circular(12),
             ),
             child: Icon(icon, color: color, size: 20),
@@ -233,7 +235,7 @@ class DashboardPage extends ConsumerWidget {
         alignment: Alignment.centerRight,
         padding: const EdgeInsets.only(right: 20),
         decoration: BoxDecoration(
-          color: AppColors.error.withOpacity(0.1),
+          color: AppColors.error.withAlpha((0.1 * 255).toInt()),
           borderRadius: BorderRadius.circular(24),
         ),
         child: const Icon(Icons.delete_outline, color: AppColors.error),
@@ -249,12 +251,12 @@ class DashboardPage extends ConsumerWidget {
           margin: const EdgeInsets.only(bottom: 16),
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
-            color: AppColors.surface.withOpacity(0.5),
+            color: AppColors.surface.withAlpha((0.5 * 255).toInt()),
             borderRadius: BorderRadius.circular(24),
             border: Border.all(
-              color: goal.isCompleted 
-                ? AppColors.success.withOpacity(0.2) 
-                : Colors.white.withOpacity(0.05),
+              color: goal.isCompleted
+                ? AppColors.success.withAlpha((0.2 * 255).toInt())
+                : Colors.white.withAlpha((0.05 * 255).toInt()),
             ),
           ),
           child: Row(
@@ -277,11 +279,11 @@ class DashboardPage extends ConsumerWidget {
                       style: GoogleFonts.outfit(
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
-                        color: goal.isCompleted 
-                          ? AppColors.textTertiary 
+                        color: goal.isCompleted
+                          ? AppColors.textTertiary
                           : AppColors.textPrimary,
-                        decoration: goal.isCompleted 
-                          ? TextDecoration.lineThrough 
+                        decoration: goal.isCompleted
+                          ? TextDecoration.lineThrough
                           : null,
                       ),
                     ),
@@ -289,7 +291,7 @@ class DashboardPage extends ConsumerWidget {
                       goal.category.name.toUpperCase(),
                       style: GoogleFonts.outfit(
                         fontSize: 12,
-                        color: AppColors.primary.withOpacity(0.8),
+                        color: AppColors.primary.withAlpha((0.8 * 255).toInt()),
                         fontWeight: FontWeight.bold,
                         letterSpacing: 1.2,
                       ),
@@ -353,14 +355,32 @@ class DashboardPage extends ConsumerWidget {
                     label: Text(cat.name),
                     selected: isSelected,
                     onSelected: (val) => setState(() => selectedCategory = cat),
-                    selectedColor: AppColors.primary.withOpacity(0.2),
+                    selectedColor: AppColors.primary.withAlpha((0.2 * 255).toInt()),
                     labelStyle: TextStyle(
                       color: isSelected ? AppColors.primary : AppColors.textTertiary,
                     ),
                   );
                 }).toList(),
               ),
-              const SizedBox(height: 32),
+              const SizedBox(height: 16),
+              Consumer(
+                builder: (context, ref, _) {
+                  final state = ref.watch(goalNotifierProvider);
+                  if (state.status == GoalNotifierStatus.error) {
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 8),
+                      child: Text(
+                        'Error: ${state.error}',
+                        style: GoogleFonts.outfit(
+                          color: AppColors.error,
+                          fontSize: 12,
+                        ),
+                      ),
+                    );
+                  }
+                  return const SizedBox.shrink();
+                },
+              ),
               SizedBox(
                 width: double.infinity,
                 child: FloatingActionButton.extended(
@@ -371,7 +391,7 @@ class DashboardPage extends ConsumerWidget {
                         ..description = ''
                         ..category = selectedCategory
                         ..createdAt = DateTime.now();
-                      
+
                       ref.read(goalNotifierProvider.notifier).addGoal(newGoal);
                       Navigator.pop(context);
                     }

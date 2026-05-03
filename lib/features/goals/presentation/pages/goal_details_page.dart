@@ -17,7 +17,7 @@ class GoalDetailsPage extends ConsumerWidget {
     return goalListAsync.when(
       data: (goals) {
         final goal = goals.firstWhere((g) => g.id == goalId);
-        
+
         return Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.transparent,
@@ -55,7 +55,7 @@ class GoalDetailsPage extends ConsumerWidget {
                       child: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                         decoration: BoxDecoration(
-                          color: AppColors.primary.withOpacity(0.1),
+                          color: AppColors.primary.withAlpha((0.1 * 255).toInt()),
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Text(
@@ -77,13 +77,13 @@ class GoalDetailsPage extends ConsumerWidget {
                       ),
                     ),
                     const SizedBox(height: 32),
-                    
+
                     // Progress Section
                     FadeInUp(
                       delay: const Duration(milliseconds: 200),
                       child: _buildProgressCard(goal),
                     ),
-                    
+
                     const SizedBox(height: 32),
                     FadeInUp(
                       delay: const Duration(milliseconds: 300),
@@ -123,7 +123,7 @@ class GoalDetailsPage extends ConsumerWidget {
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(32),
-        border: Border.all(color: Colors.white.withOpacity(0.05)),
+        border: Border.all(color: Colors.white.withAlpha((0.05 * 255).toInt())),
       ),
       child: Column(
         children: [
