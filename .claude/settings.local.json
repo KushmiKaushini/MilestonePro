@@ -3,7 +3,13 @@
     "allow": [
       "Bash(flutter pub *)",
       "Bash(flutter analyze *)",
-      "Bash(flutter --version)"
+      "Bash(flutter --version)",
+      "Bash(java *)",
+      "Read(//c/Program Files/Android/Android Studio/jbr/**)",
+      "Bash(\"C:/Program Files/Android/Android Studio/jbr/bin/java.exe\" -version)",
+      "Bash(./gradlew clean *)",
+      "Bash(./gradlew build *)",
+      "Bash(./gradlew updateLintBaseline --no-daemon)"
     ]
   }
 }

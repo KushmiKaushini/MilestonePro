@@ -16,6 +16,12 @@ android {
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
+    lint {
+        baseline = file("lint-baseline.xml")
+        // Ignore lint errors in dependencies (e.g., flutter_local_notifications)
+        checkDependencies = false
+    }
+
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_21
