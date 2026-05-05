@@ -9,7 +9,13 @@
       "Bash(\"C:/Program Files/Android/Android Studio/jbr/bin/java.exe\" -version)",
       "Bash(./gradlew clean *)",
       "Bash(./gradlew build *)",
-      "Bash(./gradlew updateLintBaseline --no-daemon)"
+      "Bash(./gradlew updateLintBaseline --no-daemon)",
+      "Bash(flutter run *)",
+      "Bash(flutter doctor *)",
+      "Bash(flutter build *)",
+      "Bash(./gradlew --version)",
+      "Bash(./gradlew --stop)",
+      "Bash(./gradlew assembleDebug --no-daemon --parallel)"
     ]
   }
 }
